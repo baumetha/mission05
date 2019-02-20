@@ -1,6 +1,6 @@
 # CS 3308 Mission 05 -- Algorithm Analysis and Binary Search
 
-## Due: Sunday February 17, 2019 @ 2300
+## Due: Sunday February 19, 2019 @ 2300
 
 ## Purpose
 * Gain experience implementing algorithms
@@ -44,7 +44,7 @@ public int m1FindLargest(int[] array) {
 ```java
 public void m2PrintTriangle(int size) {
     for (int i = 1; i <= size; i++) {
-        for (int j = 1; j <= 1; j++) {
+        for (int j = 1; j <= i; j++) {
             System.out.print("*");
         }
         System.out.println();

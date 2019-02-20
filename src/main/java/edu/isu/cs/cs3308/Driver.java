@@ -17,13 +17,64 @@ import java.util.Random;
 /**
  * Driver class for the experimental simulator.
  * @author Isaac Griffith
+ * @author Ethan Baumgartner
  */
 public class Driver {
-
+    /**
+     * Main method to run a simulation of the time it takes to find certain
+     * item using four different search methods
+     * @param args
+     */
     public static void main(String args[]) {
         // do the simulation using generateRandomArray()
-
         // report the results using report;
+        Random r = new Random();
+        LinearSearch linSearch = new LinearSearch();
+        BinarySearch binSearch = new BinarySearch();
+        RecursiveLinearSearch recLinear = new RecursiveLinearSearch();
+        RecursiveBinarySearch recBinary = new RecursiveBinarySearch();
+        long[] linearTimes = new long[16];
+        long[] binaryTimes = new long[16];
+        long[] recLinearTimes = new long[16];
+        long[] recBinaryTimes = new long[16];
+        int i = 0;
+        while (i < 2000){
+            Integer[] array = generateRandomArray(i);
+            long startTime = System.nanoTime();
+            int identifier = i % 125;
+            switch(identifier){
+                case 0:
+                linSearch.search(array, r.nextInt(2000));
+                break;
+                case 1:
+                recLinear.search(array, r.nextInt(2000));
+                break;
+                case  2:
+                binSearch.search(array,r.nextInt(2000));
+                break;
+                default:
+                    recBinary.search(array,r.nextInt(2000));
+                    break;
+            }
+            long endTime = System.nanoTime();
+            long totalTime = endTime - startTime;
+            switch (identifier) {
+                case 0:
+                    linearTimes[i/125] = totalTime;
+                    break;
+                case 1:
+                    recLinearTimes[i/125] = totalTime;
+                    break;
+                case 2:
+                    binaryTimes[i/125] = totalTime;
+                    break;
+                default:
+                    recBinaryTimes[i/125] = totalTime;
+                    break;
+            }
+            i++;
+        }
+        report(linearTimes, recLinearTimes, binaryTimes, recBinaryTimes, 500, 100);
     }
 
     /**
